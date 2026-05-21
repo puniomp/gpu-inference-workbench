@@ -8,3 +8,5 @@ __pycache__/
 docs/reports/*.json
 docs/reports/*.csv
 
+
+*.egg-info/
