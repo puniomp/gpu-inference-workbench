@@ -17,7 +17,7 @@ benchmark-infra:
 	. .venv/bin/activate && python scripts/benchmark_http.py --profile infra_debug --requests 30 --concurrency 3 --max-new-tokens 160 --out docs/reports/infra-debug
 
 benchmark-summary:
-	. .venv/bin/activate && python scripts/benchmark_http.py --profile long_summary --requests 10 --concurrency 2 --max-new-tokens 220 --out docs/reports/long-summary
+	. .venv/bin/activate && python scripts/benchmark_http.py --profile long_context_summary --requests 10 --concurrency 2 --max-new-tokens 220 --out docs/reports/long-context-summary
 
 docker-build:
 	docker build -t gpu-inference-workbench:local .

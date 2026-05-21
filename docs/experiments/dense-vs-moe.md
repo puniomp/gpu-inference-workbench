@@ -39,7 +39,7 @@ Use these benchmark profiles:
 | --- | --- | --- |
 | `support_agent` | RAG-style customer support answer | instruction following, context use, concise response |
 | `infra_debug` | AI infrastructure troubleshooting assistant | technical reasoning, practical recommendations |
-| `long_summary` | incident or architecture review summarization | long input, context handling, output structure |
+| `long_context_summary` | incident or architecture review summarization | long input, context handling, output structure |
 
 These are intentionally close to the kinds of workloads teams reach for when they move from
 "let's try a chat model" to "we need an assistant that helps employees, engineers, or customers do
@@ -106,7 +106,7 @@ python scripts/benchmark_http.py \
 Repeat for:
 
 - `infra_debug`
-- `long_summary`
+- `long_context_summary`
 
 ## What To Compare
 
@@ -129,4 +129,3 @@ I want the quality notes to stay practical. Not "which answer sounds cooler," bu
 - Did the better answer cost meaningfully more latency or memory?
 
 That is the applied AI tradeoff I care about.
-

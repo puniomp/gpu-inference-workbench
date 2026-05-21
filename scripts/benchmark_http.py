@@ -69,7 +69,7 @@ Current setup:
 Explain which bottleneck you would investigate first and why.
 """.strip(),
     ],
-    "long_summary": [
+    "long_context_summary": [
         "Summarize this incident review for an engineering director. Focus on root cause, "
         "customer impact, and prevention. "
         + (
@@ -191,6 +191,7 @@ def summarize(metrics: list[RequestMetric], elapsed_seconds: float) -> dict[str,
     latencies = [metric.latency_ms for metric in successful]
     output_tokens = sum(metric.output_tokens for metric in successful)
     input_tokens = sum(metric.input_tokens for metric in successful)
+    successful_count = len(successful)
     first = successful[0] if successful else None
     return {
         "model_id": first.model_id if first else "unknown",
@@ -202,8 +203,14 @@ def summarize(metrics: list[RequestMetric], elapsed_seconds: float) -> dict[str,
         "failed_requests": len(metrics) - len(successful),
         "elapsed_seconds": round(elapsed_seconds, 3),
         "requests_per_second": round(len(successful) / elapsed_seconds, 3) if elapsed_seconds else 0,
-        "input_tokens": input_tokens,
-        "output_tokens": output_tokens,
+        "total_input_tokens": input_tokens,
+        "total_output_tokens": output_tokens,
+        "avg_input_tokens_per_successful_request": round(input_tokens / successful_count, 3)
+        if successful_count
+        else 0,
+        "avg_output_tokens_per_successful_request": round(output_tokens / successful_count, 3)
+        if successful_count
+        else 0,
         "aggregate_output_tokens_per_second": round(output_tokens / elapsed_seconds, 3)
         if elapsed_seconds
         else 0,
@@ -246,9 +253,10 @@ def write_outputs(
         "",
         "- Compare p95/p99 latency against the target user experience.",
         "- Compare aggregate tokens/sec across model, runtime, hardware, and batching changes.",
+        "- Total token counts are summed across successful requests.",
         "- Treat failed requests as first-class performance data, not noise.",
     ]
-    md_path.write_text("\n".join(lines), encoding="utf-8")
+    md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def parse_args() -> argparse.Namespace:
@@ -276,4 +284,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
