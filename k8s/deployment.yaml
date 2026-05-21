@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gpu-inference-workbench
+  labels:
+    app: gpu-inference-workbench
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gpu-inference-workbench
+  template:
+    metadata:
+      labels:
+        app: gpu-inference-workbench
+    spec:
+      containers:
+        - name: gpu-inference-workbench
+          image: gpu-inference-workbench:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: MODEL_ID
+              value: "sshleifer/tiny-gpt2"
+            - name: DEVICE
+              value: "auto"
+          resources:
+            requests:
+              cpu: "1"
+              memory: "4Gi"
+            limits:
+              cpu: "2"
+              memory: "8Gi"
+              # Uncomment on a GPU-enabled cluster with the NVIDIA device plugin.
+              # nvidia.com/gpu: "1"
