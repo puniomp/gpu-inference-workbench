@@ -69,6 +69,55 @@ Current setup:
 Explain which bottleneck you would investigate first and why.
 """.strip(),
     ],
+    "multi_agent_handoff": [
+        """
+You are the coordinator in a multi-agent applied AI workflow.
+
+Planner notes:
+- User wants to understand why a retrieval-augmented assistant became slower after adding more
+  context.
+- The task should be split into retrieval quality, prompt length, model runtime, and serving
+  concurrency checks.
+
+Retriever notes:
+- The retriever now returns 12 chunks instead of 4.
+- Average prompt length is close to the configured input limit.
+- Top documents are relevant, but several chunks repeat the same troubleshooting section.
+
+Executor notes:
+- p95 latency increased after the prompt change.
+- GPU memory usage is stable, but request queue time increased during traffic bursts.
+- No request failures were observed in the latest run.
+
+Reviewer notes:
+- The answer should avoid over-optimizing retrieval if the main bottleneck is generation time.
+- The final recommendation should include one measurement step before changing architecture.
+
+Write the coordinator response:
+1. what each agent found
+2. the likely bottleneck
+3. the next experiment
+4. one concise recommendation
+""".strip(),
+        """
+You are synthesizing a handoff from an AI coding assistant workflow.
+
+Planner notes:
+- The user asked for help debugging slow inference.
+- The plan is to check prompt size, output length, runtime backend, and concurrency.
+
+Tool agent notes:
+- The benchmark uses a PyTorch Transformers backend.
+- The service is running on one GPU.
+- The current profile uses a fixed output token cap.
+
+Critic notes:
+- The benchmark must distinguish total tokens across the run from tokens per request.
+- The writeup should not imply a single request used the total token count.
+
+Write a final handoff that a technical lead could use to decide the next benchmark.
+""".strip(),
+    ],
     "long_context_summary": [
         "Summarize this incident review for an engineering director. Focus on root cause, "
         "customer impact, and prevention. "

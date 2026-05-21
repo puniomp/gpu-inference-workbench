@@ -16,6 +16,9 @@ benchmark-support:
 benchmark-infra:
 	. .venv/bin/activate && python scripts/benchmark_http.py --profile infra_debug --requests 30 --concurrency 3 --max-new-tokens 160 --out docs/reports/infra-debug
 
+benchmark-multi-agent:
+	. .venv/bin/activate && python scripts/benchmark_http.py --profile multi_agent_handoff --requests 30 --concurrency 3 --max-new-tokens 180 --out docs/reports/multi-agent-handoff
+
 benchmark-summary:
 	. .venv/bin/activate && python scripts/benchmark_http.py --profile long_context_summary --requests 10 --concurrency 2 --max-new-tokens 220 --out docs/reports/long-context-summary
 

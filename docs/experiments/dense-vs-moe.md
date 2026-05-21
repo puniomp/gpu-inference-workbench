@@ -39,6 +39,7 @@ Use these benchmark profiles:
 | --- | --- | --- |
 | `support_agent` | RAG-style customer support answer | instruction following, context use, concise response |
 | `infra_debug` | AI infrastructure troubleshooting assistant | technical reasoning, practical recommendations |
+| `multi_agent_handoff` | coordinator synthesis across planner, retriever, executor, and reviewer notes | multi-step context use, synthesis, structured handoff |
 | `long_context_summary` | incident or architecture review summarization | long input, context handling, output structure |
 
 These are intentionally close to the kinds of workloads teams reach for when they move from
@@ -106,6 +107,7 @@ python scripts/benchmark_http.py \
 Repeat for:
 
 - `infra_debug`
+- `multi_agent_handoff`
 - `long_context_summary`
 
 ## What To Compare

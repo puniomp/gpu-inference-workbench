@@ -18,7 +18,7 @@ reports under `docs/reports`.
 | Baseline | Dense model, low concurrency |
 | Concurrency | 1, 2, 4, 8, 16 concurrent requests |
 | Output length | 32, 64, 128, 256 generated tokens |
-| Prompt shape | support agent, infra debug, long-context summary |
+| Prompt shape | support agent, infra debug, multi-agent handoff, long-context summary |
 | Architecture | dense model versus MoE model that fits the GPU |
 
 ## What To Watch
